@@ -11,8 +11,7 @@ export default [
     },
     rules: {
       indent: ["error", 2],
-      "linebreak-style": ["error", "windows"],
-      quotes: ["error", "double"],
+      quotes: ["error", "single"],
       semi: ["error", "always"],
     },
   },

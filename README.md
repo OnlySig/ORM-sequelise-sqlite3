@@ -31,7 +31,7 @@ DOC sequelize: https://sequelize.org/docs/v6/getting-started/
 
 *npx sequelize-cli model:generate --name Pessoa --attributes nome:string,email:string,cpf:string,ativo:boolean,role:string* <- cria modelo pessoas
 
-*npx sequelize-cli db:migrate* <- faz uma migração, cria/modifica um modelo.
+*npx sequelize-cli db:migrate* <- faz uma migração, cria/modifica/atualiza um modelo para assim "entrar" no banco de dados!.
 
 se quiser desfazer uma migração: https://sequelize.org/docs/v6/other-topics/migrations/#undoing-migrations
 
@@ -39,4 +39,8 @@ se quiser desfazer uma migração: https://sequelize.org/docs/v6/other-topics/mi
 
 *npx sequelize-cli seed:generate --name demo-pessoa* <- vai criar um arquivo na sua pasta seeders, la dentro vc tem q colocar o array/dados do seu banco de dados, da uma olha no meu :)
 
-*npx sequelize-cli db:seed:all* <- quando vc configurar o seu arquivo dentro da pasta seed, vc usa esse comando que ai sim seu banco será "populado" de dados.
+*npx sequelize-cli db:seed:all* <- quando vc configurar o seu arquivo dentro da pasta seed, vc usa esse comando que ai sim seu banco será "populado" de dados, mas cuidado com esse all, ele vai executar todas as seeds, e pode duplicar oque vc ja fez.
+
+DOC de consultas: 
+[Simple UPDATE queries](https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#simple-update-queries)
+[Model Querying - Finders](https://sequelize.org/docs/v6/core-concepts/model-querying-finders/)

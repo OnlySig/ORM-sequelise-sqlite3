@@ -1,6 +1,7 @@
 class Controller {
   constructor(entidadeService) {
     this.entidadeService = entidadeService;
+    console.log(this.entidadeService)
   }
   async findAllController(req, res) {
     try {

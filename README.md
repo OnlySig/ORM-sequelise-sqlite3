@@ -41,6 +41,9 @@ se quiser desfazer uma migração: https://sequelize.org/docs/v6/other-topics/mi
 
 *npx sequelize-cli db:seed:all* <- quando vc configurar o seu arquivo dentro da pasta seed, vc usa esse comando que ai sim seu banco será "populado" de dados, mas cuidado com esse all, ele vai executar todas as seeds, e pode duplicar oque vc ja fez.
 
+*npx sequelize-cli db:seed --seed {nome da seed}*
+*npx sequelize-cli db:seed --seed 20240921045609-demo-categorias.js*
+
 DOC de consultas: 
 [Simple UPDATE queries](https://sequelize.org/docs/v6/core-concepts/model-querying-basics/#simple-update-queries)
 [Model Querying - Finders](https://sequelize.org/docs/v6/core-concepts/model-querying-finders/)

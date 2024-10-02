@@ -13,7 +13,7 @@ class PessoaController extends Controller{
       const listaMatriculas = await pessoaServices.getMatriulasPorEstudante(Number(estudanteId))
       res.status(200).json(listaMatriculas)
     } catch (error) {
-      
+      return res.status(500).json({ error: error.message });
     }
   }
 }

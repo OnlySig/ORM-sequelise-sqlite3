@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Pessoa',
-    tableName: 'pessoas'
+    tableName: 'pessoas',
+    paranoid: true, // soft-deletion - doc in README.md
   });
   return Pessoa;
 };

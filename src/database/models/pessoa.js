@@ -1,4 +1,6 @@
 'use strict';
+const isValido = require("../../utils/validaCpfHelper.js");
+
 const {
   Model
 } = require('sequelize');
@@ -21,9 +23,33 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Pessoa.init({
-    nome: DataTypes.STRING,
-    email: DataTypes.STRING,
-    cpf: DataTypes.STRING,
+    nome: { // DOC de validations do sequelize: https://sequelize.org/docs/v6/core-concepts/validations-and-constraints/
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [3, 30], //validação se o nome tem q ser maior que 3 e menor que 30.
+          msg: "Campo nome deve ter 3 à 30 caracteres!"
+        }
+
+      }
+    },
+    email: { // validations & constraints ; esse campo email está sendo validado se a informação do usuário corresponde como email
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true, 
+          msg: 'Formato do email inválido!'
+        }
+      }
+    },
+    cpf: {
+      type: DataTypes.STRING,
+      validate: {
+        cpfIsValid: (cpf) => {
+          if(!isValido(cpf)) throw new Error('número de cpf inválido!');
+        }
+      }
+    },
     ativo: DataTypes.BOOLEAN,
     role: DataTypes.STRING
   }, {
@@ -31,6 +57,16 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Pessoa',
     tableName: 'pessoas',
     paranoid: true, // soft-deletion - doc in README.md
+    defaultScope: { // scope de mostrar pessoas que ativo for true. SELECT * FROM `pessoas` AS `Pessoa` WHERE (`Pessoa`.`deletedAt` IS NULL AND `Pessoa`.`ativo` = 1);
+      where: {
+        ativo: true,
+      }
+    },
+    scopes: {
+      todosRegistros: {
+        where: {} // esse objeto vazio significa que ele vai filtrar por tudo como se fosse um SELECT * FROM ...
+      }
+    }
   });
   return Pessoa;
 };

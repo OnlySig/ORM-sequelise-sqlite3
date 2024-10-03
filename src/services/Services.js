@@ -7,6 +7,9 @@ class Services {
   async findAllRegistros() {
     return dataSource[this.model].findAll();
   }
+  async getRegistrosByScope(scope) {
+    return dataSource[this.model].scope(scope).findAll({});
+  }
   async findOneRegistro(id) {
     return dataSource[this.model].findByPk(id);
   }

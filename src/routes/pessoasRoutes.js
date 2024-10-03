@@ -9,6 +9,7 @@ const router = Router();
 
 router
   .get('/pessoas', (req, res) => pessoaController.findAllController(req, res))
+  .get('/pessoas/all', (req, res) => pessoaController.getAllPessoas(req, res))
   .get('/pessoas/:id', (req, res) => pessoaController.findOneByIdController(req, res))
   .post('/pessoas', (req, res) => pessoaController.createController(req, res))
   .put('/pessoas/:id', (req, res) => pessoaController.atualizaController(req, res))

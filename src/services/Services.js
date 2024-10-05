@@ -4,8 +4,10 @@ class Services {
   constructor(nomeDoModel) {
     this.model = nomeDoModel
   }
-  async findAllRegistros() {
-    return dataSource[this.model].findAll();
+  async findAllRegistros(where = {}) {
+    return dataSource[this.model].findAll({
+      where: { ...where }
+    });
   }
   async getRegistrosByScope(scope) {
     return dataSource[this.model].scope(scope).findAll({});

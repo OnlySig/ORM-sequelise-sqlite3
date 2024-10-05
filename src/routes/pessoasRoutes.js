@@ -19,6 +19,6 @@ router
   .get('/pessoas/:estudante_id/matriculas/:id', (req, res) => matriculaController.findOneByWhereController(req, res))
   .post('/pessoas/:estudante_id/matriculas', (req, res) => matriculaController.createController(req, res))
   .put('/pessoas/:estudante_id/matriculas/:id', (req, res) => matriculaController.atualizaController(req, res))
-  .delete('/pessoas/:estudante_id/matriculas/:id', (req, res) => matriculaController.deleteController(req, res));
+  .delete('/pessoas/:estudante_id/matriculas/:id', (req, res) => matriculaController.deleteController(req, res)); // parâmtros de rotas: :estudante_id && :id
 
 module.exports = router;

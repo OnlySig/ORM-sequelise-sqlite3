@@ -13,16 +13,25 @@ class Services {
   async findOneRegistro(id) {
     return dataSource[this.model].findByPk(id);
   }
+  async findWhereRegistro(where) {
+    return dataSource[this.model].findOne({
+      where: { ...where }
+    });
+  }
   async createRegistro(body) {
     return dataSource[this.model].create(body);
   }
-  async deleteRegistro(id) {
-    return dataSource[this.model].destroy({ where: { id } })
+  async deleteRegistro(where) {
+    return dataSource[this.model].destroy({ 
+      where: { ...where } 
+    });
   }
-  async atualizaRegistro(body, id) {
-    const listadeRegistrosAtualizados = await dataSource[this.model].update(body , { where: { id: id } });
-    if(listadeRegistrosAtualizados[0] === 0) return false 
-    return true
+  async atualizaRegistro(body, where) {
+    const listadeRegistrosAtualizados = await dataSource[this.model].update(body , { 
+      where: { ...where }
+    });
+    if(listadeRegistrosAtualizados[0] === 0) return false;
+    return true;
   }
 }
 

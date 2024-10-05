@@ -17,8 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       });
       Pessoa.hasMany(models.Matricula, {
         foreignKey: 'estudante_id',
-        //scope: { status: 'matriculado' },
+        scope: { status: 'matriculado' },
         as: 'aulasMatriculadas'
+      });
+      Pessoa.hasMany(models.Matricula, {
+        foreignKey: 'estudante_id',
+        as: 'todasMatriculadas'
       })
     }
   }
@@ -34,7 +38,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     email: { // validations & constraints ; esse campo email está sendo validado se a informação do usuário corresponde como email
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, // type, unique e validate são constraints, são como regras que regem as tabelas, são usados para limitar de que forma os dados podem ser inseridos em uma coluna ou tabela
+      unique: true,
       validate: {
         isEmail: {
           args: true, 
@@ -44,6 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     cpf: {
       type: DataTypes.STRING,
+      unique: true,
       validate: {
         cpfIsValid: (cpf) => {
           if(!isValido(cpf)) throw new Error('número de cpf inválido!');
@@ -62,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
         ativo: true,
       }
     },
-    scopes: {
+    scopes: { //Scopes are defined in the model definition and can be finder objects, or functions returning finder objects - except for the default scope, which can only be an object
       todosRegistros: {
         where: {} // esse objeto vazio significa que ele vai filtrar por tudo como se fosse um SELECT * FROM ...
       }

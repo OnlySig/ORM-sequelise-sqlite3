@@ -10,8 +10,9 @@ class CursoController extends Controller {
   }
 
   async getCursos(req, res) {
-    const { data_inicial, data_final } = req.query; //query params ou string params
+    const { data_inicial, data_final, titulo } = req.query; //query params ou string params
     const where = {}
+    titulo ? where.titulo = titulo : null
     data_inicial || data_final ? where.data_inicio = {} : null
     data_inicial ? where.data_inicio[Op.gte] = data_inicial : null
     data_final ? where.data_inicio[Op.lte] = data_final : null

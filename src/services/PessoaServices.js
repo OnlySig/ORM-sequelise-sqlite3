@@ -1,8 +1,10 @@
 const Services = require("./Services.js");
+const dataSource = require("../database/models");
 
 class PessoaServices extends Services {
   constructor() {
     super('Pessoa');
+    this.matriculaServices = new Services('Matricula');
   }
   async getMatriulasAtivasPorEstudante(estudanteId) {
     const getEstudante = await super.findOneRegistro(estudanteId);
@@ -17,6 +19,20 @@ class PessoaServices extends Services {
   async getPessoasScopeAll() {
     const listaPessoas = await super.getRegistrosByScope('todosRegistros');
     return listaPessoas;
+  }
+  async cancelaEstudanteEMatriculas(estudanteId) {
+    return dataSource.sequelize.transaction(async (transaction) => {
+      await super.atualizaRegistro({ 
+        ativo: false 
+      }, {
+        id: estudanteId
+      }, transaction);
+      await this.matriculaServices.atualizaRegistro({
+        status: 'cancelado'
+      },{
+        estudante_id: estudanteId
+      }, transaction);
+    })
   }
 }
 

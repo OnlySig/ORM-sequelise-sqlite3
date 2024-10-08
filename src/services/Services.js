@@ -4,6 +4,9 @@ class Services {
   constructor(nomeDoModel) {
     this.model = nomeDoModel
   }
+  async findAndCountServices(where) {
+    return dataSource[this.model].findAndCountAll({...where });
+  }
   async findAllRegistros(where = {}) {
     return dataSource[this.model].findAll({
       where: { ...where }
@@ -28,10 +31,12 @@ class Services {
       where: { ...where } 
     });
   }
-  async atualizaRegistro(body, where) {
-    const listadeRegistrosAtualizados = await dataSource[this.model].update(body , { 
-      where: { ...where }
-    });
+  async atualizaRegistro(body, where, transaction = {}) {
+    const listadeRegistrosAtualizados = await dataSource[this.model]
+      .update(body , { 
+        where: { ...where },
+        transaction
+      });
     if(listadeRegistrosAtualizados[0] === 0) return false;
     return true;
   }
